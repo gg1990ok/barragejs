@@ -17,29 +17,52 @@
         #canvas {
             position: absolute;
         }
-        .wrap h1 {
-            color: #00a1f4;
-        }
-        .wrap input {
-            vertical-align: middle;
-        }
     </style>
 </head>
 <body>
     <div class="wrap">
-        <h1>弹幕</h1>
         <div class="main">
             <canvas id="canvas"></canvas>
             <video src="./source/v1.mp4" id="video" controls width="620" height="420"></video>
         </div>
-        <div class="content">
-            <input type="text" id="text">
-            <input type="button" value="发弹幕" id="btn">
-            <input type="color" id="color">
-            <input type="range" id="range" max="40" min="20">
-        </div>
     </div>
 
     <script src="./src/barrage.js"></script>
+
+    <script>
+        let data = [
+            { value: '很好用', time: 1, color: 'red', speed: 1, fontSize: 22 },
+            { value: '真的很不错', time: 1, color: '#00a1f5', speed: 1, fontSize: 30 },
+            { value: '昨天下单今天就到货了', time: 2 },
+            { value: '很给力', time: 4, color: 'red', speed: 1, fontSize: 22 },
+            { value: '美的吸尘器', time: 5, color: '#00a1f5', speed: 1, fontSize: 30 },
+            { value: '第一次用吸尘器', time: 6 },
+            { value: '感觉还可以', time: 7, color: 'red', speed: 1, fontSize: 22 },
+            { value: '比想象中大', time: 8, color: '#00a1f5', speed: 1, fontSize: 30 },
+            { value: '噪音可以接受', time: 9 },
+            { value: '感觉还可以', time: 10, color: 'red', speed: 1, fontSize: 22 },
+            { value: '能用', time: 11, color: '#00a1f5', speed: 1, fontSize: 30 },
+            { value: '挺好的', time: 12 }
+        ];
+
+        window.onload = function() {
+            let doc = document;
+            let canvas = doc.getElementById('canvas');
+            let video = doc.getElementById('video');
+            // 创建CanvasBarrage实例
+            let canvasBarrage = new CanvasBarrage(canvas, video);
+            canvasBarrage.pushData(data);
+            
+            video.addEventListener('play', () => {
+                canvasBarrage.play();
+            });
+            video.addEventListener('pause', () => {
+                canvasBarrage.pause();
+            });
+            video.addEventListener('seeked', () => {
+                canvasBarrage.replay();
+            });
+        }
+    </script>
 </body>
 </html>

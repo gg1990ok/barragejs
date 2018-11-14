@@ -1,27 +1,3 @@
-let data = [
-    { value: '很好用', time: 1, color: 'red', speed: 1, fontSize: 22 },
-    { value: '真的很不错', time: 1, color: '#00a1f5', speed: 1, fontSize: 30 },
-    { value: '昨天下单今天就到货了', time: 2 },
-    { value: '很给力', time: 4, color: 'red', speed: 1, fontSize: 22 },
-    { value: '美的吸尘器', time: 5, color: '#00a1f5', speed: 1, fontSize: 30 },
-    { value: '第一次用吸尘器', time: 6 },
-    { value: '感觉还可以', time: 7, color: 'red', speed: 1, fontSize: 22 },
-    { value: '比想象中大', time: 8, color: '#00a1f5', speed: 1, fontSize: 30 },
-    { value: '噪音可以接受', time: 9 },
-    { value: '感觉还可以', time: 10, color: 'red', speed: 1, fontSize: 22 },
-    { value: '能用', time: 11, color: '#00a1f5', speed: 1, fontSize: 30 },
-    { value: '挺好的', time: 12 }
-];
-
-// 获取到所有需要的dom元素
-let doc = document;
-let canvas = doc.getElementById('canvas');
-let video = doc.getElementById('video');
-let $txt = doc.getElementById('text');
-let $btn = doc.getElementById('btn');
-let $color = doc.getElementById('color');
-let $range = doc.getElementById('range');
-
 // 创建Barrage类，用来实例化每一个弹幕元素
 class Barrage {
     constructor(obj, ctx) {
@@ -98,6 +74,8 @@ class CanvasBarrage {
 
         console.log(this);
     }
+
+    // 开始循环渲染
     render() {
         // 每次渲染先清空画布，防止后面绘制和前面的重叠
         this.clear();
@@ -109,6 +87,8 @@ class CanvasBarrage {
             requestAnimationFrame(this.render.bind(this));
         }
     }
+
+    // 渲染单个 弹幕
     renderBarrage() {
         let time = this.video.currentTime;
         this.barrages.forEach(barrage => {
@@ -125,12 +105,39 @@ class CanvasBarrage {
             }
         });
     }
+
+    // 清空 弹幕
     clear() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
-    add(obj) {
-        this.barrages.push(new Barrage(obj, this));
+
+    // 增加弹幕
+    pushData(obj = {value: '默认数据', time: 1 }) {
+        if( obj instanceof Array && obj.length > 0 ) {
+            obj.forEach(item => {
+                this.barrages.push(new Barrage(item, this));
+            })
+        } else {
+            Object.assign(obj, {
+                value: '默认数据', 
+                time: 1 
+            })
+            this.barrages.push(new Barrage(obj, this));
+        }
     }
+
+    // 开始播放
+    play() {
+        this.isPaused = false;
+        this.render();
+    }
+
+    // 暂停播放
+    pause() {
+        this.isPaused = true;
+    }
+
+    // 重新播放
     replay() {
         this.clear();
         let time = this.video.currentTime;
@@ -144,39 +151,3 @@ class CanvasBarrage {
         });
     }
 }
-// 创建CanvasBarrage实例
-let canvasBarrage = new CanvasBarrage(canvas, video, { data });
-
-
-
-
-video.addEventListener('play', () => {
-    canvasBarrage.isPaused = false;
-    canvasBarrage.render();
-});
-video.addEventListener('pause', () => {
-    canvasBarrage.isPaused = true;
-});
-video.addEventListener('seeked', () => {
-    canvasBarrage.replay();
-});
-
-
-// 发送弹幕的方法
-function send() {
-    let value = $txt.value;
-    let time = video.currentTime;
-    let color = $color.value;
-    let fontSize = $range.value;
-    let obj = { value, time, color, fontSize };
-    // 添加弹幕数据
-    canvasBarrage.add(obj);
-    $txt.value = '';
-}
-// 点击按钮发送弹幕
-$btn.addEventListener('click', send);
-// 回车发送弹幕
-$txt.addEventListener('keyup', e => {
-    let key = e.keyCode;
-    key === 13 && send();
-});
