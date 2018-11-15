@@ -18,5 +18,13 @@
   "bugs": {
     "url": "https://github.com/gg1990ok/barragejs/issues"
   },
-  "homepage": "https://github.com/gg1990ok/barragejs#readme"
+  "homepage": "https://github.com/gg1990ok/barragejs#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.1.5",
+    "@babel/core": "^7.1.6",
+    "@babel/preset-env": "^7.1.6"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.0.0"
+  }
 }
