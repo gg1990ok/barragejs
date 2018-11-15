@@ -1,6 +1,17 @@
+/**
+ * barrage.js 1.0.0
+ * 
+ * under MIT license(2018-?)
+ * 
+ * Author guocg.cn
+ * 
+ * https://github.com/gg1990ok/barragejs.git
+ * 
+ *  */
+
 // 创建Barrage类，用来实例化每一个弹幕元素
 let config = {
-    pathway: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
+    pathway: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
 }
 class Barrage {
     constructor(obj, ctx) {
