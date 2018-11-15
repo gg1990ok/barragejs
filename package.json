@@ -4,7 +4,7 @@
   "description": "A javascript barrage plug-in",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "babel src -d lib"
   },
   "repository": {
     "type": "git",
@@ -20,11 +20,7 @@
   },
   "homepage": "https://github.com/gg1990ok/barragejs#readme",
   "devDependencies": {
-    "@babel/cli": "^7.1.5",
-    "@babel/core": "^7.1.6",
-    "@babel/preset-env": "^7.1.6"
+    "babel-cli": "^6.26.0"
   },
-  "dependencies": {
-    "@babel/polyfill": "^7.0.0"
-  }
+  "dependencies": {}
 }
