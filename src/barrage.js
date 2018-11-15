@@ -8,18 +8,23 @@ class Barrage {
     }
     init() {
         this.color = this.obj.color || this.context.color;
-        this.speed = this.obj.speed || this.context.speed;
+        this.runTime = this.obj.runTime || this.context.runTime;
         this.opacity = this.obj.opacity || this.context.opacity;
         this.fontSize = this.obj.fontSize || this.context.fontSize;
 
         // 为了计算每个弹幕的宽度，我们必须创建一个元素，然后计算文字的宽度
         let p = document.createElement('p');
+        p.style.position = "absolute";
         p.style.font = this.fontSize + 'px';
         p.innerHTML = this.value;
         document.body.appendChild(p);
         // 设置弹幕的宽度
         this.width = p.clientWidth;
+        console.log('this.width:', this.width);
         document.body.removeChild(p);
+        this.speed = (this.context.canvas.width + this.width) / this.runTime;
+        console.log('speed:', this.speed);
+        
 
         this.x = this.context.canvas.width;
         this.y = this.context.canvas.height * Math.random();
@@ -57,7 +62,8 @@ class CanvasBarrage {
         // 设置默认参数
         let defOpts = {
             color: '#e91e63',
-            speed: 1.5,
+            // 弹幕运行的时间
+            runTime: 500,
             opacity: 0.5,
             fontSize: 20,
             data: []
