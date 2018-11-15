@@ -1,4 +1,7 @@
 // 创建Barrage类，用来实例化每一个弹幕元素
+let config = {
+    pathway: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
+}
 class Barrage {
     constructor(obj, ctx) {
         this.value = obj.value;
@@ -20,14 +23,13 @@ class Barrage {
         document.body.appendChild(p);
         // 设置弹幕的宽度
         this.width = p.clientWidth;
-        console.log('this.width:', this.width);
         document.body.removeChild(p);
         this.speed = (this.context.canvas.width + this.width) / this.runTime;
-        console.log('speed:', this.speed);
-        
 
         this.x = this.context.canvas.width;
-        this.y = this.context.canvas.height * Math.random();
+        let aa = config.pathway.shift();
+        config.pathway.push(aa);
+        this.y = aa * this.fontSize;
 
         // 考虑到弹幕会超出顶部和底部的距离，所以需要处理一下超出范围
         // canvas是按照字号基线来展示字体的
