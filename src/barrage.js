@@ -9,10 +9,9 @@
  * 
  *  */
 
+import config from './config.js';
+
 // 创建Barrage类，用来实例化每一个弹幕元素
-let config = {
-    pathway: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
-}
 class Barrage {
     constructor(obj, ctx) {
         this.value = obj.value;
@@ -170,3 +169,5 @@ class CanvasBarrage {
         });
     }
 }
+
+export default CanvasBarrage;
