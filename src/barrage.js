@@ -43,3 +43,5 @@ class Barrage {
         this.context.ctx.fillText(this.value, this.x, this.y);
     }
 }
+
+export default Barrage

@@ -9,6 +9,8 @@
  * 
  *  */
 
+import Barrage from './barrage';
+
 // 创建CanvasBarrage类，主要用做canvas来渲染整个弹幕
 class CanvasBarrage {
     constructor(canvas, video, opts = {}) {
@@ -121,3 +123,5 @@ class CanvasBarrage {
         });
     }
 }
+
+export {CanvasBarrage};
